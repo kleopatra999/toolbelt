@@ -3,7 +3,7 @@ require "erb"
 def build_zip(name)
   rm_rf "#{component_dir(name)}/.bundle"
   rm_rf Dir["#{basedir}/components/#{name}/pkg/*.zip"]
-  component_bundle name, "install --without \"development\""
+  component_bundle name, 'install --without "development"'
   component_bundle name, "exec rake zip:clean zip:build"
   Dir["#{basedir}/components/#{name}/pkg/*.zip"].first
 end
@@ -25,7 +25,7 @@ file pkg("heroku-toolbelt-#{version}.exe") do |t|
         cache = File.join(File.dirname(__FILE__), "..", ".cache", i)
         FileUtils.mkdir_p File.dirname(cache)
         unless File.exists? cache
-          system "curl http://heroku-toolbelt.s3.amazonaws.com/#{i} -o \"#{cache}\""
+          system %Q{curl http://heroku-toolbelt.s3.amazonaws.com/#{i} -o "#{cache}"}
         end
         cp cache, i
       end
@@ -38,12 +38,12 @@ file pkg("heroku-toolbelt-#{version}.exe") do |t|
       iss.write(ERB.new(File.read(resource("exe/heroku.iss"))).result(binding))
     end
 
-    inno_dir = ENV["INNO_DIR"] || 'C:\\Program Files (x86)\\Inno Setup 5\\'
-    signtool = ENV["SIGNTOOL"] || 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.1\\Bin\\signtool.exe'
+    inno_dir = ENV["INNO_DIR"] || 'C:\Program Files (x86)\Inno Setup 5\\'
+    signtool = ENV["SIGNTOOL"] || 'C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\signtool.exe'
     password = ENV["CERT_PASSWORD"]
     # TODO: can't have a space in the certificate path; keeping it in C: root sucks
     sign_with = "/sStandard=#{signtool} sign /d Heroku-Toolbelt /f C:\\Certificates.p12 /v /p #{password} $f"
-    system "\"#{inno_dir}\\iscc\" \"#{sign_with}\" /cc \"heroku.iss\""
+    system %Q{"#{inno_dir}\\iscc" "#{sign_with}" /cc "heroku.iss"}
   end
 end
 
