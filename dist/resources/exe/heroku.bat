@@ -3,7 +3,7 @@
 @SETLOCAL
 
 :: Add bundled ruby version to the PATH, use HerokuPath as starting point
-@SET HEROKU_RUBY="%HerokuPath%\ruby-1.9.2\bin"
+@SET HEROKU_RUBY="%HerokuPath%\ruby-1.9.3\bin"
 @SET PATH=%HEROKU_RUBY%;%PATH%
 
 :: Invoke 'heroku' (the calling script) as argument to ruby.
