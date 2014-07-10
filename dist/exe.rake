@@ -57,7 +57,7 @@ file pkg("heroku-toolbelt-#{version}.exe") do |t|
     # TODO: can't have a space in the certificate path; keeping it in C: root sucks
     sign_with = "/sStandard=#{signtool} sign /d Heroku-Toolbelt /f C:\\Certificates.p12 /v /p #{password} $f"
     sleep 1 # try to get around signed file being held by previous process.
-    system %Q{"#{inno_dir}\\iscc" "#{sign_with}" /cc "heroku.iss"}
+    system %Q{"#{inno_dir}\\iscc" /qp "#{sign_with}" /cc "heroku.iss"}
   end
 end
 
