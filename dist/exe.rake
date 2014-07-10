@@ -22,7 +22,7 @@ file pkg("heroku-toolbelt-#{version}.exe") do |t|
 
     mkchdir("installers") do
       ["rubyinstaller.exe", "git.exe"].each do |i|
-        cache = File.join(File.dirname(__FILE__), "..", ".cache", i)
+        cache = File.expand_path(File.join(File.dirname(__FILE__), "..", ".cache", i))
         FileUtils.mkdir_p File.dirname(cache)
         unless File.exists? cache
           system %Q{curl http://heroku-toolbelt.s3.amazonaws.com/#{i} -o "#{cache}"}
