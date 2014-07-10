@@ -1,5 +1,12 @@
 require "erb"
 
+# this function is only called once to package the heroku cli distribution zip
+# through its build:zip task, which also vendors in the correct gems and other
+# such hotchpotchery.
+# It's is especially fun-tastic as its return value is the path to the
+# resulting zip file, which we immediately proceed to pass to the extract_zip
+# function, which is also just called once, and does exactly what it says on
+# the tin.
 def build_zip(name)
   rm_rf "#{component_dir(name)}/.bundle"
   rm_rf Dir["#{basedir}/components/#{name}/pkg/*.zip"]
@@ -8,6 +15,7 @@ def build_zip(name)
   Dir["#{basedir}/components/#{name}/pkg/*.zip"].first
 end
 
+# see comment on build_zip
 def extract_zip(filename, destination)
   tempdir do |dir|
     sh %{ unzip -q "#{filename}" }
@@ -15,6 +23,11 @@ def extract_zip(filename, destination)
   end
 end
 
+# file task for the final windows installer file.
+# if you ask me, it's fairly pointless to be using a file task for the final
+# file if the intermediates get placed in all sorts of temp dirs that then get
+# destroyed, so we we don't get to benefit from the time savings of not
+# generating the same thing over and over again.
 file pkg("heroku-toolbelt-#{version}.exe") do |t|
   tempdir do |dir|
     mkdir_p "#{dir}/heroku"
