@@ -30,9 +30,11 @@ end
 # generating the same thing over and over again.
 file pkg("heroku-toolbelt-#{version}.exe") do |t|
   tempdir do |dir|
+    # gather the heroku cli files
     mkdir_p "#{dir}/heroku"
     extract_zip build_zip("heroku"), "#{dir}/heroku/"
 
+    # gather the ruby and git installers, downlading from s3
     mkchdir("installers") do
       ["rubyinstaller.exe", "git.exe"].each do |i|
         cache = File.expand_path(File.join(File.dirname(__FILE__), "..", ".cache", i))
@@ -44,13 +46,17 @@ file pkg("heroku-toolbelt-#{version}.exe") do |t|
       end
     end
 
+    # add windows helper executables to the heroku cli
     cp resource("exe/heroku.bat"), "heroku/bin/heroku.bat"
     cp resource("exe/heroku"),     "heroku/bin/heroku"
 
+    # render the iss file used by inno setup to compile the installer
+    # this sets the version, and the output path and filename so it ends up where we want it
     File.open("heroku.iss", "w") do |iss|
       iss.write(ERB.new(File.read(resource("exe/heroku.iss"))).result(binding))
     end
 
+    # finally, run the inno compiler to build and sign the installer
     inno_dir = ENV["INNO_DIR"] || 'C:\Program Files (x86)\Inno Setup 5'
     signtool = ENV["SIGNTOOL"] || 'C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\signtool.exe'
     password = ENV["CERT_PASSWORD"]
