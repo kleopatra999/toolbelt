@@ -56,7 +56,8 @@ def s3
     Fog::Storage.new(
       :provider               => 'AWS',
       :aws_access_key_id      => ENV["HEROKU_RELEASE_ACCESS"],
-      :aws_secret_access_key  => ENV["HEROKU_RELEASE_SECRET"]
+      :aws_secret_access_key  => ENV["HEROKU_RELEASE_SECRET"],
+      :path_style            => true,
     )
   end
 end
