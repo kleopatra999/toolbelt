@@ -3,6 +3,7 @@
 .sass-cache
 /.bundle
 /.cache
+/dist/wine
 /pg
 /pkg
 /vendor
