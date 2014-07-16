@@ -58,7 +58,7 @@ AWS credentials.
 
 The Windows installer can be built on the Mac and Linux using Wine.
 
-You'll need wine and winetricks. On the Mac you'll also need XQuartz.
+You'll need wine. On the Mac you'll also need winetricks and XQuartz.
 
 ### Installing Mac prerequisites
 
