@@ -1,8 +1,8 @@
 .DS_Store
 .env
 .sass-cache
-/vendor
 /.bundle
-/pkg
-/pg
 /.cache
+/pg
+/pkg
+/vendor
