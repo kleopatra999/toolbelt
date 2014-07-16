@@ -20,6 +20,7 @@ def cleanup_after_wine
   # this sends a soft reset to the terminal, albeit I suspect it only works in xterm emulators,
   # but then again maybe it's an xterm-only problem anyway? who knows…
   system "echo \033[!p"
+  system "stty echo"
 end
 
 # ensure cleanup_after_wine runs when aborted too
