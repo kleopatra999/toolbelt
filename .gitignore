@@ -4,6 +4,7 @@
 /.bundle
 /.cache
 /dist/wine
+/dist/resources/exe/heroku-codesign-cert.pvk
 /pg
 /pkg
 /vendor

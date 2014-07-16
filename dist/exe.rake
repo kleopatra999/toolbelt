@@ -155,8 +155,14 @@ end
 desc "Remove passphrase from heroku-codesign-cert.pvk; see source comments"
 task "exe:pvk-nocrypt" do
   openssl = (ENV["OPENSSL_PATH"] || "openssl").shellescape
-  keyfile = resource('exe/heroku-codesign-cert.pvk').shellescape
   version = `#{openssl} version`.chomp
+  keyfile_in  = resource('exe/heroku-codesign-cert.encrypted.pvk').shellescape
+  keyfile_out = resource('exe/heroku-codesign-cert.pvk').shellescape
   raise "OpenSSL version should be 1.0.x; instead got: #{version}" if version !~ /^OpenSSL 1\./
-  system "#{openssl} rsa -inform PVK -outform PVK -pvk-none -in #{keyfile} -out #{keyfile}"
+  system "#{openssl} rsa -inform PVK -outform PVK -pvk-none -in #{keyfile_in} -out #{keyfile_out}"
+end
+
+desc "Link the encrypted pvk"
+task "exe:pvk" do
+  symlink resource("exe/heroku-codesign-cert.encrypted.pvk"), resource("exe/heroku-codesign-cert.pvk")
 end

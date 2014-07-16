@@ -79,14 +79,20 @@ You'll need wine and winetricks. On the Mac you'll also need XQuartz.
 
 The certificate and private key for code signing are in the repo in:
 
-> dist/resources/exe/heroku-codesign-cert.{spc,pvk}
+> dist/resources/exe/heroku-codesign-cert*
 
 which is in the format mono signcode wants.
 
 The pvk file is encrypted. If you want the build to not prompt you for
 its passphrase, you'll need to decrypt it. See the `exe:pvk-nocrypt` task.
 
-You'll have to ask the right person for the passphrase.
+Bewake the openssl version on the Mac doesn't work with `exe:pvk-nocrypt`.
+See comments on the source code for details and solution.
+
+If you wanna leave the key encrypted, you still have to link it before
+building; run the `exe:pvk` task for that.
+
+You'll have to ask the right person for the passphrase to the key.
 
 You then need to initialize a custom wine build environment. The `exex:init-wine`
 task will do that for you.
