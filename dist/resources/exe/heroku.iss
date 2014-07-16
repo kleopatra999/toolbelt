@@ -1,6 +1,9 @@
 [Setup]
-AppName=Heroku
+AppName=Heroku Toolbelt
 AppVersion=<%= version %>
+AppVerName=Heroku Toolbelt <%= version %>
+AppPublisher=Heroku, Inc.
+AppPublisherURL=http://www.heroku.com/
 DefaultDirName={pf}\Heroku
 DefaultGroupName=Heroku
 Compression=lzma2
