@@ -56,18 +56,42 @@ AWS credentials.
 
 ## Windows Packaging
 
-Apart from needing
-[Ruby](http://heroku-toolbelt.s3.amazonaws.com/rubyinstaller.exe) and
-[Git](http://heroku-toolbelt.s3.amazonaws.com/git.exe), a few
-dependencies must be manually installed.
+The Windows installer can be built on the Mac and Linux using Wine.
 
-* [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
-* [Inno Setup](http://www.jrsoftware.org/isdl.php)
-* [7zip](http://7-zip.org/)
-* [signtool](http://msdn.microsoft.com/en-us/windowsserver/bb980924.aspx)
+You'll need wine and winetricks. On the Mac you'll also need XQuartz.
 
-You also need a copy of the `Certificates.p12` file placed in the
-C drive root and cert's password set in the `CERT_PASSWORD` environment variable.
+### Installing Mac prerequisites
+
+* Install [XQuartz](http://xquartz.macosforge.org/) manually, or via the terminal:
+
+        curl -O# http://xquartz-dl.macosforge.org/SL/XQuartz-2.7.6.dmg
+        hdiutil attach XQuartz-2.7.6.dmg -mountpoint /Volumes/xquartz
+        sudo installer -store -pkg /Volumes/xquartz/XQuartz.pkg -target /
+        hdiutil detach /Volumes/xquartz
+        rm XQuartz-2.7.6.dmg
+
+* Install wine and winetricks:
+
+        brew install wine
+        brew install winetricks
+
+### General usage
+
+The certificate and private key for code signing are in the repo in:
+
+> dist/resources/exe/heroku-codesign-cert.{spc,pvk}
+
+which is in the format mono signcode wants.
+
+The pvk file is encrypted. If you want the build to not prompt you for
+its passphrase, you'll need to decrypt it. See the `exe:pvk-nocrypt` task.
+
+You'll have to ask the right person for the passphrase.
+
+You then need to initialize a custom wine build environment. The `exex:init-wine`
+task will do that for you.
+
+That's all, then just run `exe:build`.
 
 
 ## Ruby versions
