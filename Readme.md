@@ -75,7 +75,7 @@ You'll need wine and winetricks. On the Mac you'll also need XQuartz.
         brew install wine
         brew install winetricks
 
-### General usage
+### General setup
 
 The certificate and private key for code signing are in the repo in:
 
@@ -83,7 +83,7 @@ The certificate and private key for code signing are in the repo in:
 
 which is in the format mono signcode wants.
 
-The pvk file is encrypted. If you want the build to not prompt you for
+The pvk file is encrypted. If you want the build not to prompt you for
 its passphrase, you'll need to decrypt it. See the `exe:pvk-nocrypt` task.
 
 Bewake the openssl version on the Mac doesn't work with `exe:pvk-nocrypt`.
@@ -94,7 +94,7 @@ building; run the `exe:pvk` task for that.
 
 You'll have to ask the right person for the passphrase to the key.
 
-You then need to initialize a custom wine build environment. The `exex:init-wine`
+You then need to initialize a custom wine build environment. The `exe:init-wine`
 task will do that for you.
 
 That's all, then just run `exe:build`.
