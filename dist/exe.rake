@@ -82,3 +82,25 @@ task "exe:release" => "exe:build" do |t|
   store pkg("heroku-toolbelt-#{version}.exe"), "heroku-toolbelt/heroku-toolbelt-beta.exe" if beta?
   store pkg("heroku-toolbelt-#{version}.exe"), "heroku-toolbelt/heroku-toolbelt.exe" unless beta?
 end
+
+# Mono's signcode tool can't take the private key passphrase non-interactively (read file, pass as parameter),
+# so to run the build non-interactively we have to use a passphrase-less key. To keep the private key secure,
+# the key that comes from the repository is encrypted. You can either run exe:build and type in the passphrase
+# manually (twice!), or decode it for good with this task.
+#
+# Ensure your build environment is secure before leaving an unencrypted private key lying around.
+#
+# Additionally, Mac OS X's default openssl, as of Mavericks, is 0.9.8y, which doesn't support the pvk format.
+# The 1.0.x tree does, and you can install it via homebrew (brew install openssl), but it's keg-only, so it'll
+# not be in your PATH. You could `brew link` it, but it's safer to leave it alone. Hence you can pass the full
+# path to the openssl binary to be used via the OPENSSL_PATH environment variable:
+#
+#    OPENSSL_PATH=`brew --prefix openssl`/bin/openssl rake exe:pvk-nocrypt
+desc "Remove passphrase from heroku-codesign-cert.pvk so signcode doesn't ask for it, making the exe:build task non-interactive"
+task "exe:pvk-nocrypt" do
+  openssl = (ENV["OPENSSL_PATH"] || "openssl").shellescape
+  keyfile = resource('exe/heroku-codesign-cert.pvk').shellescape
+  version = `#{openssl} version`.chomp
+  raise "OpenSSL version should be 1.0.x; instead got: #{version}" if version !~ /^OpenSSL 1\./
+  system "#{openssl} rsa -inform PVK -outform PVK -pvk-none -in #{keyfile} -out #{keyfile}"
+end
