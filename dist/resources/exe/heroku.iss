@@ -1,16 +1,19 @@
 [Setup]
-AppName=Heroku
+AppName=Heroku Toolbelt
 AppVersion=<%= version %>
+AppVerName=Heroku Toolbelt <%= version %>
+AppPublisher=Heroku, Inc.
+AppPublisherURL=http://www.heroku.com/
 DefaultDirName={pf}\Heroku
 DefaultGroupName=Heroku
 Compression=lzma2
 SolidCompression=yes
-OutputBaseFilename=<%= File.basename(t.name, ".exe") %>
-OutputDir=<%= File.dirname(t.name) %>
+OutputBaseFilename=<%= File.basename(exe_task.name, ".exe") %>
+OutputDir=..
 ChangesEnvironment=yes
 UsePreviousSetupType=no
 AlwaysShowComponentsList=no
-SignTool=Standard
+SignTool=mono-signcode
 
 ; For Ruby expansion ~ 32MB (installed) - 12MB (installer)
 ExtraDiskSpaceRequired=20971520
