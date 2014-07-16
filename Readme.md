@@ -70,6 +70,8 @@ You'll need wine. On the Mac you'll also need winetricks and XQuartz.
         hdiutil detach /Volumes/xquartz
         rm XQuartz-2.7.6.dmg
 
+  You must reboot after installing XQuartz.
+
 * Install wine and winetricks:
 
         brew install wine
