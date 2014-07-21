@@ -36,7 +36,7 @@ trap("INT") { cleanup_after_wine; exit }
 def build_zip(name)
   rm_rf "#{component_dir(name)}/.bundle"
   rm_rf Dir["#{basedir}/components/#{name}/pkg/*.zip"]
-  component_bundle name, 'install --without development --quiet'
+  component_bundle name, 'install --without development --quiet --deployment'
   component_bundle name, "exec rake zip:clean zip:build #{windows? ? '1>nul' : '1>/dev/null'}"
   Dir["#{basedir}/components/#{name}/pkg/*.zip"].first
 end
