@@ -125,7 +125,7 @@ end
 desc "Create wine environment to build windows installer"
 task "exe:init-wine" do
   setup_wine_env
-  system "wineboot" # init wine dir
+  system "wineboot --init" # init wine dir
   system "winetricks settings macdriver=x11" if $is_mac # iscc borks without this
   # replace winemenubuilder with a thing that does nothing, preventing it from poopin' a .config dir into your $HOME
   system %q[
