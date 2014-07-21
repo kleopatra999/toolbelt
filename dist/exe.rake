@@ -129,9 +129,9 @@ task "exe:init-wine" do
   # replace winemenubuilder with a thing that does nothing, preventing it from poopin' a .config dir into your $HOME
   system %q[
     echo "int main(){return 0;}" > noop.c
-    winegcc noop.c -o winemenubuilder
-    mv winemenubuilder.exe.so "$WINEPREFIX/drive_c/windows/system32/winemenubuilder.exe"
-    rm winemenubuilder.exe noop.c
+    winegcc noop.c -o noop
+    mv noop.exe.so "$WINEPREFIX/drive_c/windows/system32/winemenubuilder.exe"
+    rm noop.*
   ]
   # set mac wine to use the x11 display driver; iscc borks without this, also it lets us run headless with Xvfb
   system %Q[echo '[HKEY_CURRENT_USER\\Software\\Wine\\Drivers]\n"Graphics"="x11"' | regedit -] if $is_mac
