@@ -10,10 +10,14 @@ def setup_wine_env
   ENV["WINEPREFIX"]       = "#$base_path/dist/wine" # keep it contained; by default it goes in $HOME/.wine
   ENV["WINEDEBUG"]        = "-all"                  # wine is full of errors, no one cares
   ENV["WINEDLLOVERRIDES"] = "winemenubuilder.exe=n" # tell wine to use our custom winemenubuilder.exe, see comment in exe:init-wine
+  ENV["DISPLAY"]          = ':42'
+  $xvfb_pid = spawn 'Xvfb', ':42', [:out,:err] => '/dev/null' # use a virtual x server so we can run headless
 end
 
 def cleanup_after_wine
-  (sleep 1; system %q[osascript -e 'tell application "XQuartz" to quit']) if $is_mac # quit XQuartz
+  # terminate our Xvfb process
+  Process.kill "INT", $xvfb_pid
+  Process.wait $xvfb_pid
   # wine leaves the terminal all sorts of broken.
   # pretty much every time it'll switch input to cursor key application mode (cf. http://www.tldp.org/HOWTO/Keyboard-and-Console-HOWTO-21.html),
   # fairly often it'll turn echo off, a couple other odd things have also been observed.
