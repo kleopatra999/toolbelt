@@ -131,8 +131,8 @@ task "exe:init-wine" do
   system %q[
     echo "int main(){return 0;}" > noop.c
     winegcc noop.c -o winemenubuilder
-    mv winemenubuilder.* "$WINEPREFIX/drive_c/windows/system32/"
-    rm noop.c
+    mv winemenubuilder.exe.so "$WINEPREFIX/drive_c/windows/system32/winemenubuilder.exe"
+    rm winemenubuilder.exe noop.c
   ]
   # install inno setup
   isetup_path = windows_path(cache_file_from_bucket("isetup.exe")).shellescape
