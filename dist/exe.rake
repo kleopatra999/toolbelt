@@ -96,7 +96,7 @@ file pkg("heroku-toolbelt-#{version}.exe") do |exe_task|
 
     # compile installer under wine!
     setup_wine_env
-    system 'wine', 'C:\Program Files\Inno Setup 5\ISCC.exe',
+    system 'wine', 'C:\inno\ISCC.exe',
       "/Smono-signcode=#{sign_cmd}", '/qp',
       windows_path("#{installer_path}/heroku.iss")
     cleanup_after_wine
@@ -136,7 +136,7 @@ task "exe:init-wine" do
   ]
   # install inno setup
   isetup_path = windows_path(cache_file_from_bucket("isetup.exe")).shellescape
-  system "wine #{isetup_path} /verysilent /suppressmsgboxes /nocancel /norestart /noicons"
+  system "wine #{isetup_path} /verysilent /suppressmsgboxes /nocancel /norestart /noicons /dir=c:\\inno"
   cleanup_after_wine
 end
 
