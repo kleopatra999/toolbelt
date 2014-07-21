@@ -129,6 +129,7 @@ end
 desc "Create wine environment to build windows installer"
 task "exe:init-wine" do
   setup_wine_env
+  rm_rf ENV["WINEPREFIX"]
   system "wineboot --init" # init wine dir
   # replace winemenubuilder with a thing that does nothing, preventing it from poopin' a .config dir into your $HOME
   system %q[
