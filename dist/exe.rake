@@ -12,10 +12,12 @@ def setup_wine_env
   ENV["WINEDLLOVERRIDES"] = "winemenubuilder.exe=n" # tell wine to use our custom winemenubuilder.exe, see comment in exe:init-wine
   ENV["DISPLAY"]          = ':42'
   $xvfb_pid = spawn 'Xvfb', ':42', [:out,:err] => '/dev/null' # use a virtual x server so we can run headless
+  sleep(2) # give Xvfb some time to boot up
 end
 
 def cleanup_after_wine
   # terminate our Xvfb process
+  sleep(2) # give Xvfb some time to finish up; seems to prevent some error messages
   Process.kill "INT", $xvfb_pid
   Process.wait $xvfb_pid
   # wine leaves the terminal all sorts of broken.
