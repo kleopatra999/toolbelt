@@ -58,9 +58,16 @@ AWS credentials.
 
 The Windows installer can be built on the Mac and Linux using Wine.
 
-You'll need wine. On the Mac you'll also need winetricks and XQuartz.
+### Installing Linux prerequisites
+
+    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+    sudo apt-get install -y build-essential libpq-dev libsqlite3-dev curl xvfb wine
 
 ### Installing Mac prerequisites
+
+Assuming Xcode and Homebrew are already installed.
+
+* Install libraries required by the gems: `brew install sqlite postgresql`
 
 * Install [XQuartz](http://xquartz.macosforge.org/) manually, or via the terminal:
 
@@ -70,12 +77,12 @@ You'll need wine. On the Mac you'll also need winetricks and XQuartz.
         hdiutil detach /Volumes/xquartz
         rm XQuartz-2.7.6.dmg
 
-  You must reboot after installing XQuartz.
+  You must log out and back in (or reboot) after installing XQuartz.
 
-* Install wine and winetricks:
+  `/opt/X11/bin` should be in your `$PATH` so `Xvfb` can be started.
 
-        brew install wine
-        brew install winetricks
+* Install wine: `brew install wine`
+
 
 ### General setup
 
