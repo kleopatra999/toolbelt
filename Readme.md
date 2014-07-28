@@ -103,12 +103,8 @@ building; run the `exe:pvk` task for that.
 
 You'll have to ask the right person for the passphrase to the key.
 
-You then need to initialize a custom wine build environment. The
-`exe:init-wine` task will do that for you. Depending on your version
-of Wine, this may not install Mono where it needs to be. If you don't
-have a `dist/wine/drive_c/windows/mono` directory, run this:
-
-> ln -s $HOME/.wine/drive_c/windows/mono dist/wine/drive_c/windows/mono
+You then need to initialize a custom wine build environment. The `exe:init-wine`
+task will do that for you.
 
 That's all, then just run `exe:build`.
 
