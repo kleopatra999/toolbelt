@@ -35,5 +35,7 @@
     = haml :_tag_manager
     .wrapper
       = yield
-    %footer
-      %a{:href=> 'https://www.heroku.com/policy/privacy'}Privacy Policy
+      %footer
+        .links
+          %a{:href=> 'https://www.heroku.com'} heroku.com
+          %a.privacy{:href=> 'https://www.heroku.com/policy/privacy'} Privacy Policy
