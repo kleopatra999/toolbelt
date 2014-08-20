@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/heroku/toolbelt.png)](https://travis-ci.org/heroku/toolbelt)
+[![Build Status](https://travis-ci.org/heroku/toolbelt.svg?branch=master)](https://travis-ci.org/heroku/toolbelt)
 
 # Heroku Toolbelt
 
