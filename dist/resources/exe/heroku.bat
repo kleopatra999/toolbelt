@@ -4,7 +4,7 @@
 
 :: Add bundled ruby version to the PATH, use HerokuPath as starting point
 @SET HEROKU_RUBY="%HerokuPath%\ruby-1.9.3\bin"
-@SET PATH=%HEROKU_RUBY%;%PATH%
+@SET PATH=%HEROKU_RUBY%;%PATH%;%ProgramFiles(x86)%\Git\bin
 
 :: Invoke 'heroku' (the calling script) as argument to ruby.
 :: Also forward all the arguments provided to it.
