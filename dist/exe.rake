@@ -83,8 +83,10 @@ file pkg("heroku-toolbelt-#{version}.exe") do |exe_task|
     end
 
     # add windows helper executables to the heroku cli
-    cp resource("exe/heroku.bat"), "#{heroku_cli_path}/bin/heroku.bat"
-    cp resource("exe/heroku"),     "#{heroku_cli_path}/bin/heroku"
+    cp resource("exe/heroku.bat"),  "#{heroku_cli_path}/bin/heroku.bat"
+    cp resource("exe/heroku"),      "#{heroku_cli_path}/bin/heroku"
+    cp resource("exe/foreman.bat"), "#{heroku_cli_path}/bin/foreman.bat"
+    cp resource("exe/foreman"),     "#{heroku_cli_path}/bin/foreman"
 
     # render the iss file used by inno setup to compile the installer
     # this sets the version and the output filename
