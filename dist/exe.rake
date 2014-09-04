@@ -87,6 +87,7 @@ file pkg("heroku-toolbelt-#{version}.exe") do |exe_task|
     cp resource("exe/heroku"),      "#{heroku_cli_path}/bin/heroku"
     cp resource("exe/foreman.bat"), "#{heroku_cli_path}/bin/foreman.bat"
     cp resource("exe/foreman"),     "#{heroku_cli_path}/bin/foreman"
+    cp resource("exe/ssh-keygen.bat"), "#{heroku_cli_path}/bin/ssh-keygen.bat"
 
     # render the iss file used by inno setup to compile the installer
     # this sets the version and the output filename
