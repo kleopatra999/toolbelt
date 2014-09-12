@@ -27,11 +27,14 @@
 
 SCRIPT
 
-    # remind the user to add to $PATH
-    if [ ":$PATH:" != *":/usr/local/heroku/bin:"* ]; then
-	echo "Add the Heroku CLI to your PATH using:"
-	echo "$ echo 'PATH=\"/usr/local/heroku/bin:\$PATH\"' >> ~/.profile"
-    fi
-
-    echo "Installation complete"
+    # remind the user to add to $PATH if they don't already have it
+    case "$PATH" in
+      */usr/local/heroku/bin*)
+        echo "Installation complete"
+        ;;
+      *)
+        echo "Add the Heroku CLI to your PATH using:"
+        echo "$ echo 'PATH=\"/usr/local/heroku/bin:\$PATH\"' >> ~/.profile"
+        ;;
+    esac
 }
