@@ -1,0 +1,8 @@
+set -e -x
+
+git clone --recursive https://github.com/heroku/toolbelt
+cd toolbelt
+git checkout docker
+gem install bundler
+bundle
+bundle exec rake deb:build
