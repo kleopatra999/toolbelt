@@ -21,7 +21,7 @@ end
 
 group :development, :production do
   gem "pg", "=0.13.2"
-  gem "honeybadger"
+  gem "rollbar"
 end
 
 group :test do

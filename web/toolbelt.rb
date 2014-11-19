@@ -7,6 +7,7 @@ require "sinatra"
 require "pg"
 require "json"
 require "uri"
+require "rollbar"
 
 class Toolbelt < Sinatra::Base
 
@@ -32,6 +33,29 @@ class Toolbelt < Sinatra::Base
     set :root, File.expand_path("../", __FILE__)
     set :views, File.expand_path("../views", __FILE__)
     set :logging, false
+
+    Rollbar.configure do |config|
+      config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
+      config.environment = Sinatra::Base.environment
+      config.framework = "Sinatra: #{Sinatra::VERSION}"
+      config.root = Dir.pwd
+    end
+  end
+
+  class RequestDataExtractor
+    include Rollbar::RequestDataExtractor
+    def from_rack(env)
+      extract_request_data_from_rack(env).merge({
+        :route => env["PATH_INFO"]
+      })
+    end
+  end
+
+  error do
+    request_data = RequestDataExtractor.new.from_rack(env)
+    Rollbar.report_exception(env['sinatra.error'], request_data)
+    status 500
+    "Internal Server Error"
   end
 
   configure :production do

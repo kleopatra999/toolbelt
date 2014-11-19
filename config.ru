@@ -10,12 +10,6 @@ class Rack::CommonLogger
   end
 end
 
-require "honeybadger"
-Honeybadger.configure do |config|
-  config.api_key = ENV["HONEYBADGER_API_KEY"]
-end
-use Honeybadger::Rack
-
 $:.unshift File.expand_path("../web", __FILE__)
 require "toolbelt"
 run Toolbelt
