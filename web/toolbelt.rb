@@ -13,7 +13,7 @@ class Toolbelt < Sinatra::Base
 
   use Heroku::Nav::Header
 
-  use Rack::Session::Cookie, secret: ENV['SESSION_SECRET']
+  use Rack::Session::Cookie, secret: ENV['SESSION_SECRET'], key: 'toolbelt-sso-session'
   use ::Heroku::Bouncer, oauth: { id: ENV['HEROKU_OAUTH_ID'], secret: ENV['HEROKU_OAUTH_SECRET'] },
                          secret: ENV['SESSION_SECRET'],
                          session_sync_nonce: 'heroku_session_nonce',
