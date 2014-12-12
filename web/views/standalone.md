@@ -29,4 +29,4 @@ You're now ready to create your first Heroku app:
 
 ### Technical details
 
-The install script will download a tarball of the `heroku` client and install it to `/usr/local/heroku`. Toolbelt requires Ruby 1.9+.
+The install script will download a tarball of the `heroku` client and install it to `/usr/local/heroku`.
