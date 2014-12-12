@@ -116,7 +116,7 @@ Toolbelt bundles Ruby using different sources according to the OS:
 - Windows: fetches [rubyinstaller.exe](http://rubyinstaller.org/) from S3.
 - Mac: fetches ruby.pkg from S3. That file was extracted from
 [RailsInstaller](http://railsinstaller.org/en).
-- Linux: uses system debs for Ruby (requires Ruby 1.9+).
+- Linux: uses system debs for Ruby.
 
 
 ## Beta versions
