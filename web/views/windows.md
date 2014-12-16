@@ -15,18 +15,15 @@ Once installed, you'll have access to the heroku command from your command shell
     $ heroku login
     Enter your Heroku credentials.
     Email: adam@example.com
-    Password:
-    Could not find an existing public key.
-    Would you like to generate one? [Yn]
-    Generating new SSH public key.
-    Uploading ssh public key /Users/adam/.ssh/id_rsa.pub
+    Password (typing will be hidden):
+    Authentication successful.
 
 You're now ready to create your first Heroku app:
 
     $ cd ~/myapp
     $ heroku create
-    Creating stark-fog-398... done, stack is cedar
-    http://stark-fog-398.herokuapp.com/ | git@heroku.com:stark-fog-398.git
+    Creating stark-fog-398... done, stack is cedar-14
+    http://stark-fog-398.herokuapp.com/ | https://git.heroku.com/stark-fog-398.git
     Git remote heroku added
 
 ### Technical details
