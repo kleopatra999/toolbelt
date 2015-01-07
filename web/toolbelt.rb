@@ -202,13 +202,13 @@ class Toolbelt < Sinatra::Base
   get "/download/zip" do
     log_download(request)
     record_hit "zip"
-    redirect "https://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client.zip"
+    redirect "http://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client.zip"
   end
 
   get "/download/beta-zip" do
     log_download(request)
     record_hit "zip"
-    redirect "https://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client-beta.zip"
+    redirect "http://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client-beta.zip"
   end
 
   # linux install instructions
