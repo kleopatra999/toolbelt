@@ -1,8 +1,11 @@
 $:.unshift File.expand_path("../lib", __FILE__)
 require "bundler/setup"
+require "rake/testtask"
 
-Dir[File.expand_path("../tasks/*.rake", __FILE__)].each do |task|
-  load task
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/**/*_test.rb']
+  t.verbose = true
 end
 
 task :default => :test
