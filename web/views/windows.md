@@ -5,7 +5,6 @@
 ### What is it?
 
 * [Heroku client](http://github.com/heroku/heroku) - CLI tool for creating and managing Heroku apps
-* [Foreman](http://github.com/ddollar/foreman) - an easy option for running your apps locally
 * [Git](https://code.google.com/p/msysgit/) - revision control and pushing to Heroku
 
 ### Getting started
