@@ -5,8 +5,6 @@
 ### What is it?
 
 * [Heroku client](http://github.com/heroku/heroku) - CLI tool for creating and managing Heroku apps
-* [Foreman](http://github.com/ddollar/foreman) - an easy option for running your apps locally
-* [Git](http://git-scm.com/book/en/Getting-Started-Installing-Git#Installing-on-Linux) - revision control and pushing to Heroku
 
 ### Getting started
 
@@ -28,4 +26,4 @@ You're now ready to create your first Heroku app:
 
 ### Technical details
 
-The install script will add our repository and key to your apt sources and then have apt install the `heroku` and `foreman` packages from it. The `heroku` command line client will be installed into `/usr/local/heroku` and `/usr/local/heroku/bin` will be added to your `PATH`.
+The install script will add our repository and key to your apt sources and then have apt install the `heroku` package from it. The `heroku` command line client will be installed into `/usr/local/heroku` and `/usr/local/heroku/bin` will be added to your `PATH`.
