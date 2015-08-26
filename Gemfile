@@ -8,7 +8,6 @@ gem "rake"
 gem "rdiscount", "~> 1.6.x"
 gem "sass"
 gem "sinatra"
-gem "heroku-bouncer", "0.4.1"
 
 group :development do
   gem "shotgun"

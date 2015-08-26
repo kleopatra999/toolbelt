@@ -20,8 +20,6 @@ The toolbelt stores download statistics in Postgres:
     $ createdb toolbelt
     $ cat toolbelt.sql | psql toolbelt
 
-The toolbelt site uses `heroku-bouncer` to synchronize the session with different Heroku properties and track the page visits. In order to do so, [set your app as an OAuth client](https://github.com/heroku/heroku-bouncer#use) and add a custom `SESSION_SECRET` env. var.
-
 Run `bundle exec rake` to run the site's test suite.
 
 # Publishing Updates
