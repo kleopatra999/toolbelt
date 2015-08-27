@@ -12,31 +12,6 @@ describe Toolbelt do
   end
 
   context "the toolbelt website" do
-    it "sets cookies by default to sync the session with Heroku properties" do
-      toolbelt.stubs(:record_hit)
-      toolbelt.stubs(:log_event)
-
-      non_ubuntu_paths.each do |path|
-        get path
-
-        assert !last_response.headers['Set-Cookie'].nil?
-      end
-    end
-
-    # apt-get doesn't like fetching long responses, raising a "Got a single header line over 360 chars" error
-    # http://askubuntu.com/questions/405390/heroku-toolbelt-install-header-over-360-characters/405410
-    # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=658346
-    it "does not set cookies under /ubuntu* paths to play nicely with apt-get" do
-      toolbelt.stubs(:record_hit)
-      toolbelt.stubs(:log_event)
-
-      ubuntu_paths.each do |path|
-        get path
-
-        assert last_response.headers['Set-Cookie'].nil?
-      end
-    end
-
     it "logs page visit events without recording hits" do
       toolbelt.expects(:record_hit).never
       toolbelt.expects(:log_event).with(anything, 'PageVisit').times(page_visit_paths.size)
