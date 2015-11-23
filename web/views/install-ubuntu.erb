@@ -21,5 +21,10 @@
   # install the toolbelt
   apt-get install -y heroku-toolbelt
 
+  # install ruby if needed (vervet)
+  if ! type ruby >/dev/null 2>&1; then
+    apt-get install -y ruby
+  fi
+
 SCRIPT
 }
