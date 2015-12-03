@@ -149,10 +149,6 @@ var pjax = $.pjax = function( options ) {
       window.history.pushState(state, document.title, options.url)
     }
 
-    // Google Analytics support
-    if ( (options.replace || options.push) && (typeof window.dataLayer != 'undefined') )
-      dataLayer.push({ 'event': 'trackPageview', 'virtualPath': window.location.pathname.toString() });
-
     // If the URL has a hash in it, make sure the browser
     // knows to navigate to the hash.
     var hash = window.location.hash.toString()
