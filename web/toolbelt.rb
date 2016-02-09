@@ -31,6 +31,33 @@ class Toolbelt < Sinatra::Base
       config.environment = Sinatra::Base.environment
       config.framework = "Sinatra: #{Sinatra::VERSION}"
       config.root = Dir.pwd
+
+      config.scrub_headers |= [
+        'Cookie',
+        'Set-Cookie',
+        'X_CSRF_TOKEN'
+      ]
+
+      config.scrub_fields |= [
+        'access_token',
+        'api_key',
+        'authenticity_token',
+        'bounder.refresh_token',
+        'bouncer.token',
+        'confirm_password',
+        '_csrf_token',
+        'heroku_oauth_token',
+        'heroku_session_nonce',
+        'heroku_user_session',
+        'oauth_token',
+        'password',
+        'password_confirmation',
+        'secret',
+        'secret_token',
+        'session_id',
+        'user_session_secret',
+        'toolbelt-sso-session',
+      ]
     end
   end
 
