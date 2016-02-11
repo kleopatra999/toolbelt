@@ -1,0 +1,32 @@
+{
+  "name": "toolbelt",
+  "scripts": {},
+  "env": {
+    "GEM_PATH": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "PATH": {
+      "required": true
+    },
+    "RACK_ENV": "production",
+    "SESSION_SECRET": {
+      "generator": "secret"
+    },
+    "UPDATE_HASH": {
+      "generator": "secret"
+    }
+  },
+  "addons": [
+    "rollbar",
+    "heroku-postgresql",
+    "dyno-analyzer"
+  ],
+  "buildpacks": [
+    {
+      "url": "urn:buildpack:heroku/ruby"
+    }
+  ]
+}
