@@ -13,13 +13,6 @@ the toolbelt packages.
 
 # Setup
 
-The toolbelt stores download statistics in Postgres:
-
-    $ initdb pg
-    $ postgres -D pg # in a separate terminal
-    $ createdb toolbelt
-    $ cat toolbelt.sql | psql toolbelt
-
 Run `bundle exec rake` to run the site's test suite.
 
 # Publishing Updates

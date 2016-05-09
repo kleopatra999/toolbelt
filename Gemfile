@@ -19,7 +19,6 @@ group :production do
 end
 
 group :development, :production do
-  gem "pg", "=0.13.2"
   gem "rollbar"
 end
 

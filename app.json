@@ -21,7 +21,6 @@
   },
   "addons": [
     "rollbar",
-    "heroku-postgresql",
     "dyno-analyzer"
   ],
   "buildpacks": [
