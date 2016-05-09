@@ -4,7 +4,6 @@ require "compass"
 require "rdiscount"
 require "heroku/nav"
 require "sinatra"
-require "pg"
 require "json"
 require "uri"
 require "rollbar"
@@ -107,31 +106,6 @@ class Toolbelt < Sinatra::Base
         else                 :osx
       end
     end
-
-    def protected!
-      unless authorized?
-        response['WWW-Authenticate'] = %(Basic realm="Restricted Area")
-        throw(:halt, [401, "Not authorized\n"])
-      end
-    end
-
-    def authorized?
-      @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-      @auth.provided? && @auth.basic? && @auth.credentials &&
-        @auth.credentials == [ENV["USERNAME"], ENV["PASSWORD"]]
-    end
-  end
-
-  def db
-    if (connection = Thread.current[:db]) && !connection.finished?
-      connection # poor man's connection pooling
-    else
-      uri = URI.parse(ENV["DATABASE_URL"])
-      params = {:host => uri.host, :port => uri.port, :dbname => uri.path[1 .. -1]}
-      params.merge!({:user => uri.user, :password => uri.password}) if (uri.user && uri.password)
-
-      Thread.current[:db] = PG.connect(params)
-    end
   end
 
   def log_page_visit(req)
@@ -154,14 +128,6 @@ class Toolbelt < Sinatra::Base
     event['component'] = 'toolbelt'
 
     STDOUT.puts event.to_json
-  end
-
-  def record_hit os
-    db.exec("INSERT INTO stats (os, user_agent, ip, referer) VALUES ($1, $2, $3, $4)",
-            [os, request.user_agent, request.ip, request.referer])
-
-  rescue StandardError => e
-    puts e.backtrace.join("\n")
   end
 
   get "/" do
@@ -203,32 +169,27 @@ class Toolbelt < Sinatra::Base
 
   get "/download/windows" do
     log_download(request)
-    record_hit "windows"
     redirect "https://s3.amazonaws.com/assets.heroku.com/heroku-toolbelt/heroku-toolbelt.exe"
   end
 
   get "/download/osx" do
     log_download(request)
-    record_hit "osx"
     redirect "https://s3.amazonaws.com/assets.heroku.com/heroku-toolbelt/heroku-toolbelt.pkg"
   end
 
   get "/download/zip" do
     log_download(request)
-    record_hit "zip"
     redirect "http://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client.zip"
   end
 
   get "/download/beta-zip" do
     log_download(request)
-    record_hit "zip"
     redirect "http://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client-beta.zip"
   end
 
   # linux install instructions
   get "/install-ubuntu.sh" do
     if request.user_agent =~ /curl|wget/i # viewing in the browser shouldn't count as a download
-      record_hit "debian"
       log_download(request)
     end
     content_type "text/plain"
@@ -237,7 +198,6 @@ class Toolbelt < Sinatra::Base
 
   get "/install.sh" do
     if request.user_agent =~ /curl|wget/i # viewing in the browser shouldn't count as a download
-      record_hit "other"
       log_download(request)
     end
     content_type "text/plain"
@@ -246,30 +206,10 @@ class Toolbelt < Sinatra::Base
 
   get "/install-other.sh" do
     if request.user_agent =~ /curl|wget/i # viewing in the browser shouldn't count as a download
-      record_hit "other"
       log_download(request)
     end
     content_type "text/plain"
     erb :"install.sh"
-  end
-
-  get "/stats/:days" do |days|
-    protected!
-    query = "SELECT os, COUNT(*) FROM stats WHERE stamp > $1 GROUP BY os"
-    stats = db.exec(query, [Time.now - (days.to_i * 86400)]).values
-    content_type :json
-    # I forget what the converse of Hash#to_a is, so...
-    stats.inject({}){|x, p| x[p[0]] = p[1].to_i; x}.to_json
-  end
-
-  get "/stats/updates/:days" do |days|
-    protected!
-    query = "SELECT user_agent FROM stats WHERE stamp > $1 AND os = 'zip' AND user_agent <> ''"
-    stats = db.exec(query, [Time.now - (days.to_i * 86400)]).values
-    macs = stats.select{|a| a[0] =~ /darwin/ }.length
-    windows = stats.length - macs
-    content_type :json
-    {"osx" => macs, "windows" => windows }.to_json
   end
 
   # legacy redirects

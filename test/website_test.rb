@@ -12,8 +12,7 @@ describe Toolbelt do
   end
 
   context "the toolbelt website" do
-    it "logs page visit events without recording hits" do
-      toolbelt.expects(:record_hit).never
+    it "logs page visit events" do
       toolbelt.expects(:log_event).with(anything, 'PageVisit').times(page_visit_paths.size)
 
       page_visit_paths.each do |path|
@@ -23,8 +22,7 @@ describe Toolbelt do
       end
     end
 
-    it "logs download events and records hits for download requests coming from browsers" do
-      toolbelt.expects(:record_hit).times(browser_download_paths.size)
+    it "logs download events for download requests coming from browsers" do
       toolbelt.expects(:log_event).with(anything, 'Download').times(browser_download_paths.size)
 
       browser_download_paths.each do |path|
@@ -32,8 +30,7 @@ describe Toolbelt do
       end
     end
 
-    it "logs download events and records hits for curl/wget requests coming from curl/wget" do
-      toolbelt.expects(:record_hit).times(shell_download_paths.size * 2)
+    it "logs download events for curl/wget requests coming from curl/wget" do
       toolbelt.expects(:log_event).with(anything, 'Download').times(shell_download_paths.size * 2)
 
       shell_download_paths.each do |path|
