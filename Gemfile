@@ -1,5 +1,5 @@
 ruby "2.1.5"
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 gem "compass"
 gem "haml"
