@@ -2,11 +2,10 @@
 
 # Heroku Toolbelt
 
-The Heroku Toolbelt is a package of the Heroku CLI, Foreman, and Git —
-all the tools you need to get started using Heroku at the command
-line. The Toolbelt is available as a native installer for OS X and
-Windows, and is available from an apt-get repository for Debian/Ubuntu
-Linux.
+The Heroku Toolbelt contains the Heroku CLI and Git — all you need
+to get started using Heroku at the command line. The Toolbelt is
+available as a native installer for OS X and Windows, and from an
+apt-get repository on Debian/Ubuntu Linux.
 
 This repository is a static site with instructions and downloads for
 the toolbelt packages.
